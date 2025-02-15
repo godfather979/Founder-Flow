@@ -76,7 +76,8 @@ const IdeaGenerator = () => {
       <div className="absolute top-10 left-10 w-40 h-40 bg-blue-500 rounded-full opacity-30 blur-2xl"></div>
       <div className="absolute bottom-10 right-10 w-40 h-40 bg-blue-400 rounded-full opacity-30 blur-2xl"></div>
 
-      <div className="relative p-8 max-w-4xl mx-auto bg-opacity-20 backdrop-blur-lg shadow-lg rounded-xl border border-white/20 text-white">
+      {/* Main Container (Adjusted Width & Height) */}
+      <div className="relative p-6 w-[90%] max-w-5xl h-auto mx-auto bg-opacity-20 backdrop-blur-lg shadow-lg rounded-xl border border-white/20 text-white">
         <h1 className="text-3xl font-bold text-center text-blue-400 mb-6 animate-pulse">
           <span className="glow-text">Startup Idea Generator 🚀</span>
         </h1>
@@ -89,15 +90,18 @@ const IdeaGenerator = () => {
           ].map(({ field, label, options }) => (
             <div key={field} className="flex items-center gap-3">
               <select
-                className="p-3 bg-black/40 border border-white/30 rounded-lg w-full text-white"
-                value={formData[field]}
-                onChange={(e) => handleChange(field, e.target.value)}
-              >
-                <option value="">{`Select ${label}`}</option>
-                {options.map((option) => (
-                  <option key={option} value={option}>{option}</option>
-                ))}
-              </select>
+  className="p-3 bg-gradient-to-r from-gray-800 to-gray-900 border border-white/30 rounded-lg w-full text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+  value={formData[field]}
+  onChange={(e) => handleChange(field, e.target.value)}
+>
+  <option value="" className="text-gray-400">{`Select ${label}`}</option>
+  {options.map((option) => (
+    <option key={option} value={option} className="text-white bg-gray-900 hover:bg-gray-700">
+      {option}
+    </option>
+  ))}
+</select>
+
 
               <motion.button
                 className="p-3 bg-blue-400 text-white rounded-lg hover:bg-blue-600"
