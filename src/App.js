@@ -2,7 +2,7 @@ import "./App.css";
 import "@fontsource/poppins"; // Headings
 import "@fontsource/inter"; // Body text
 import "@fontsource/montserrat"; // Buttons
-import NavInv from "./components/Navbar";
+import NavInv from "./pages/NavInv";
 
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
