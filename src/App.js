@@ -3,6 +3,7 @@ import "@fontsource/poppins"; // Headings
 import "@fontsource/inter"; // Body text
 import "@fontsource/montserrat"; // Buttons
 import NavHome from "./pages/nav/NavHome";
+import NavIdea from "./pages/nav/NavIdea";
 
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
@@ -25,6 +26,7 @@ const RoutesWeb = () => {
       <Routes>
         <Route path="/" element={<NavHome />} />
         <Route path="/Home" element={<NavHome />} />
+        <Route path="/ideation" element={<NavIdea />} />
       </Routes>
       {/* {!isAdminRoute && <Footer />}       Conditionally render Footer */}
     </>
