@@ -162,19 +162,20 @@ h1 {
   .orbit-1 {
     width: 1200px;
     height: 1200px;
-    animation: orbit 20s linear infinite;
+    animation: orbit 10s linear infinite;
   }
   
   .orbit-2 {
     width: 1200px;
     height: 1200px;
-    animation: orbit 25s linear infinite reverse;
+    animation: orbit 15s linear infinite reverse;
   }
   
   .floating-sphere {
     position: absolute;
     border-radius: 50%;
     transform-origin: center;
+    will-change: transform;
   }
   
   .sphere-1 {
@@ -184,6 +185,7 @@ h1 {
     left: calc(50% - 75px);
     background: radial-gradient(circle at 30% 30%, #1E90FF, #040B2B);
     box-shadow: 0 0 50px rgba(30, 144, 255, 0.3);
+    animation: float 2s infinite ease-in-out;
   }
   
   .sphere-2 {
@@ -193,7 +195,9 @@ h1 {
     left: calc(50% - 90px);
     background: radial-gradient(circle at 30% 30%, #1E90FF, #040B2B);
     box-shadow: 0 0 60px rgba(30, 144, 255, 0.3);
+    animation: float 2s infinite ease-in-out;
   }
+
   
   .circle-outline {
     position: absolute;
