@@ -2,7 +2,7 @@ import "./App.css";
 import "@fontsource/poppins"; // Headings
 import "@fontsource/inter"; // Body text
 import "@fontsource/montserrat"; // Buttons
-import NavInv from "./pages/NavInv";
+import NavHome from "./pages/nav/NavHome";
 
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
@@ -23,7 +23,8 @@ const RoutesWeb = () => {
     <>
       {/* {loading && <Loader />} */}
       <Routes>
-        <Route path="/nav" element={<NavInv />} />
+        <Route path="/" element={<NavHome />} />
+        <Route path="/Home" element={<NavHome />} />
       </Routes>
       {/* {!isAdminRoute && <Footer />}       Conditionally render Footer */}
     </>

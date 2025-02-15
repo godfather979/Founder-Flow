@@ -7,18 +7,22 @@ module.exports = {
     extend: {
       colors: {
         light: {
-          primary: "#1E3A8A", // Deep Navy
-          secondary: "#64748B", // Slate Gray
-          accent: "#FACC15", // Soft Gold
-          background: "#F9FAFB", // Off-White
-          text: "#1E293B", // Dark Gray
+          primary: "#2563EB", // Vibrant Blue
+          secondary: "#10B981", // Emerald Green
+          accent: "#F59E0B", // Amber
+          background: "#FAF5E4", // Soft Cream
+          text: "#1E293B", // Deep Navy Text
+          card: "#FFFFFF", // White Cards
+          border: "#E2E8F0", // Subtle Blue Border
         },
         dark: {
-          primary: "#1E40AF", // Royal Blue
-          secondary: "#475569", // Slate Gray
-          accent: "#FACC15", // Soft Gold
-          background: "#0F172A", // Deep Blue-Black
-          text: "#E2E8F0", // Soft White
+          primary: "#3B82F6", // Bright Blue
+          secondary: "#14B8A6", // Teal
+          accent: "#FACC15", // Gold
+          background: "#111827", // Midnight Blue
+          text: "#F3F4F6", // Soft White
+          card: "#1F2937", // Dark Charcoal for Cards
+          border: "#374151", // Subtle Dark Border
         },
       },
       fontFamily: {
@@ -31,8 +35,8 @@ module.exports = {
         "2xl": "1.5rem",
       },
       boxShadow: {
-        soft: "0 4px 6px rgba(0, 0, 0, 0.1)",
-        deep: "0 8px 16px rgba(0, 0, 0, 0.2)",
+        soft: "0 4px 8px rgba(0, 0, 0, 0.1)", // Soft for light mode
+        deep: "0 6px 14px rgba(0, 0, 0, 0.25)", // Deeper for dark mode
       },
     },
   },
