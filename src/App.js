@@ -5,7 +5,12 @@ import "@fontsource/montserrat"; // Buttons
 import NavHome from "./pages/nav/NavHome";
 import NavIdea from "./pages/nav/NavIdea";
 import NavIdeaGen from "./pages/nav/NavIdeaGen";
+import NavIdeaVal from "./pages/nav/NavIdeaVal";
+import NavRoadMap from "./pages/nav/NavRoadMap";
 import IdeaGenerator from "./pages/IdeaGenerator";
+import IdeaValidator from "./pages/IdeaValidator";
+import RoadMap from "./pages/RoadMap";
+import Landing from "./pages/Landing";
 
 
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
@@ -27,10 +32,12 @@ const RoutesWeb = () => {
     <>
       {/* {loading && <Loader />} */}
       <Routes>
-        <Route path="/" element={<NavHome />} />
+        <Route path="/" element={<Landing />} />
         <Route path="/Home" element={<NavHome />} />
         <Route path="/ideation" element={<NavIdea />} />
         <Route path="/ideation/generator" element={<NavIdeaGen />} />
+        <Route path="/ideation/validator" element={<NavIdeaVal />} />
+        <Route path="/ideation/RoadMap" element={<NavRoadMap />} />
 
       </Routes>
       {/* {!isAdminRoute && <Footer />}       Conditionally render Footer */}

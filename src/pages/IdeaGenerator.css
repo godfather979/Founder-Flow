@@ -1,0 +1,139 @@
+/* Base styles */
+.idea-generator-container {
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(to bottom, #000000, #1a1a2e);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Stars animation */
+  @keyframes twinkle {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+  }
+  
+  .star:nth-child(1) { top: 10%; left: 10%; animation: twinkle 3s infinite 0.5s; }
+  .star:nth-child(2) { top: 20%; left: 25%; animation: twinkle 3s infinite 1s; }
+  .star:nth-child(3) { top: 30%; left: 50%; animation: twinkle 3s infinite 1.5s; }
+  .star:nth-child(4) { top: 40%; left: 75%; animation: twinkle 3s infinite 2s; }
+  .star:nth-child(5) { top: 50%; left: 85%; animation: twinkle 3s infinite 2.5s; }
+  .star:nth-child(6) { top: 60%; left: 15%; animation: twinkle 3s infinite 3s; }
+  .star:nth-child(7) { top: 70%; left: 35%; animation: twinkle 3s infinite 3.5s; }
+  .star:nth-child(8) { top: 80%; left: 65%; animation: twinkle 3s infinite 4s; }
+  .star:nth-child(9) { top: 90%; left: 90%; animation: twinkle 3s infinite 4.5s; }
+  
+  /* Button animations */
+  @keyframes glow {
+    0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
+    50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+    100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
+  }
+  
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  /* Custom button styles */
+  button {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  button:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+  }
+  
+  button:hover:before {
+    width: 200%;
+    height: 200%;
+  }
+  
+  /* Specific button styles */
+  .surprise-btn {
+    background: linear-gradient(45deg, #ffd700, #ffa500);
+    animation: glow 3s infinite;
+  }
+  
+  .full-surprise-btn {
+    background: linear-gradient(45deg, #9333ea, #7e22ce);
+    animation: float 3s infinite ease-in-out;
+  }
+  
+  .generate-btn {
+    background: linear-gradient(45deg, #2563eb, #1d4ed8);
+  }
+  
+  /* Form element styles */
+  select {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    transition: all 0.3s ease;
+  }
+  
+  select:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  select option {
+    background-color: #1a1a2e;
+    color: white;
+  }
+  
+  /* Result card animation */
+  @keyframes fadeSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .result-card {
+    animation: fadeSlideUp 0.5s ease-out forwards;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .idea-generator-container {
+      padding: 1rem;
+    }
+    
+    button {
+      font-size: 0.9rem;
+      padding: 0.75rem;
+    }
+    
+    select {
+      font-size: 0.9rem;
+    }
+  }

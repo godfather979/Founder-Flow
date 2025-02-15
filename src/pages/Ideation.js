@@ -23,8 +23,8 @@ export default function Ideation() {
       description: "Validate your business idea with market analysis and feedback."
     },
     {
-      label: "Mind Map Maker",
-      href: "/ideation/mindmap",
+      label: "Road Map Maker",
+      href: "/ideation/Roadmap",
       icon: <FcMindMap className="h-8 w-8" />, 
       description: "Convert your ideas into structured, interactive mind maps."
     }
