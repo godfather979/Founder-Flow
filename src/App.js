@@ -1,7 +1,9 @@
 import './App.css';
+import "@fontsource/poppins"; // Headings
+import "@fontsource/inter"; // Body text
+import "@fontsource/montserrat"; // Buttons
+
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import Hello from './components/Hello';
-import Bye from './components/Bye';
 
 
 function App() {
@@ -24,8 +26,6 @@ const RoutesWeb = () => {
       <>
       {/* {loading && <Loader />} */}
       <Routes>
-        <Route path="/" element={<Hello />} />
-        <Route path="/bye" element={<Bye />} />
       </Routes>
       {/* {!isAdminRoute && <Footer />}       Conditionally render Footer */}
       </>
