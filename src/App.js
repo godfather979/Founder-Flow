@@ -3,6 +3,7 @@ import "@fontsource/poppins"; // Headings
 import "@fontsource/inter"; // Body text
 import "@fontsource/montserrat"; // Buttons
 import NavHome from "./pages/nav/NavHome";
+import NavLegal from "./pages/nav/NavLegal";
 import NavIdea from "./pages/nav/NavIdea";
 import NavIdeaGen from "./pages/nav/NavIdeaGen";
 import NavIdeaVal from "./pages/nav/NavIdeaVal";
@@ -38,6 +39,8 @@ const RoutesWeb = () => {
         <Route path="/ideation/generator" element={<NavIdeaGen />} />
         <Route path="/ideation/validator" element={<NavIdeaVal />} />
         <Route path="/ideation/RoadMap" element={<NavRoadMap />} />
+        
+        <Route path="/legal" element={<NavLegal />} />
 
       </Routes>
       {/* {!isAdminRoute && <Footer />}       Conditionally render Footer */}
