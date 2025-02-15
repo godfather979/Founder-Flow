@@ -4,7 +4,8 @@ import { IconBulb, IconChecklist, IconTrash } from "@tabler/icons-react";
 import { FcMindMap } from "react-icons/fc";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const API_KEY = "AIzaSyCFdu2Bg60WxMakJsBwlHI212aHCoMkpwo";
+// const API_KEY = "AIzaSyCFdu2Bg60WxMakJsBwlHI212aHCoMkpwo";
+const API_KEY = process.env.REACT_APP_GEMINI_API_KEY;;
 const genAI = new GoogleGenerativeAI(API_KEY);
 
 export default function Ideation() {
@@ -55,6 +56,10 @@ const saveGeneratedIdea = (data) => {
 
   const clearWhiteboard = () => {
     setWhiteboardItems([]);
+  };
+
+  const clearIdea = () => {
+    setFinalizedBoards([]);
   };
 
   const generateGeminiResponse = async (structuredBoard) => {
@@ -192,6 +197,7 @@ const saveGeneratedIdea = (data) => {
           className="cursor-pointer bg-light-card dark:bg-dark-card p-6 rounded-xl shadow-md border border-light-border dark:border-dark-border hover:shadow-lg transition-transform transform hover:-translate-y-1"
           onClick={() => setExpanded(true)}
         >
+        <button onClick={clearIdea} className="bg-red-500 text-white px-4 py-2 rounded-lg">Clear All</button>
           <h3 className="text-xl font-bold">{finalizedBoards.name}</h3>
           <p className="text-sm mt-2 text-light-text dark:text-dark-text opacity-75">
             {finalizedBoards.description}
@@ -265,3 +271,4 @@ const saveGeneratedIdea = (data) => {
 
 
 // KHALI DABBA ARAI IDKY BADMAI DEKHTEY
+// claer all idea ka button ka jaga fix karnay 
