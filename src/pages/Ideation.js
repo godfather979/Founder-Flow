@@ -5,7 +5,7 @@ import { FcMindMap } from "react-icons/fc";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // const API_KEY = "AIzaSyCFdu2Bg60WxMakJsBwlHI212aHCoMkpwo";
-const API_KEY = process.env.REACT_APP_GEMINI_API_KEY;;
+const API_KEY = process.env.REACT_APP_GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(API_KEY);
 
 export default function Ideation() {
