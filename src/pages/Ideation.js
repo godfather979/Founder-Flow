@@ -32,8 +32,15 @@ export default function Ideation() {
   const [whiteboardItems, setWhiteboardItems] = useState([]);
   const [newIdeaType, setNewIdeaType] = useState("Name");
   const [newIdeaText, setNewIdeaText] = useState("");
-  const [finalizedBoard, setFinalizedBoard] = useState(null);
+  const [finalizedBoards, setFinalizedBoards] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [expandedBoard, setExpandedBoard] = useState(null);
+
+  // Function to save AI-generated idea to the list
+const saveGeneratedIdea = (data) => {
+    setFinalizedBoards(prevBoards => [...prevBoards, data]);
+  };
 
   const addToWhiteboard = () => {
     if (newIdeaText.trim() === "") return;
@@ -87,7 +94,9 @@ export default function Ideation() {
       const model = genAI.getGenerativeModel({ model: "gemini-pro" });
       const result = await model.generateContent([context, prompt]);
       const responseText = await result.response.text();
-      setFinalizedBoard(JSON.parse(responseText));
+      const jsonResponse = JSON.parse(responseText)
+      // Save the generated idea using a separate function
+      saveGeneratedIdea(jsonResponse);
     } catch (error) {
       console.error("Error generating AI response:", error);
     }
@@ -176,12 +185,83 @@ export default function Ideation() {
       </button>
 
       {/* Display Gemini Output */}
-      {finalizedBoard && (
-        <div className="mt-6 p-6 bg-light-card dark:bg-dark-card border rounded-lg max-w-4xl text-left w-full">
-          <h3 className="text-xl font-semibold mb-2">Generated Idea Analysis:</h3>
-          <pre className="whitespace-pre-wrap break-words">{JSON.stringify(finalizedBoard, null, 2)}</pre>
+      {finalizedBoards && (
+        <div className="mt-6 w-full max-w-4xl">
+        {/* Clickable Card */}
+        <div 
+          className="cursor-pointer bg-light-card dark:bg-dark-card p-6 rounded-xl shadow-md border border-light-border dark:border-dark-border hover:shadow-lg transition-transform transform hover:-translate-y-1"
+          onClick={() => setExpanded(true)}
+        >
+          <h3 className="text-xl font-bold">{finalizedBoards.name}</h3>
+          <p className="text-sm mt-2 text-light-text dark:text-dark-text opacity-75">
+            {finalizedBoards.description}
+          </p>
         </div>
+      
+        {/* Popup Modal */}
+        {expanded && (
+          <div className="mt-6 w-full max-w-4xl">
+          {finalizedBoards.map((board, index) => (
+            <div 
+              key={index}
+              className="cursor-pointer bg-light-card dark:bg-dark-card p-6 rounded-xl shadow-md border border-light-border dark:border-dark-border hover:shadow-lg transition-transform transform hover:-translate-y-1 mb-4"
+              onClick={() => setExpandedBoard(board)}
+            >
+              <h3 className="text-xl font-bold">{board.name}</h3>
+              <p className="text-sm mt-2 text-light-text dark:text-dark-text opacity-75">
+                {board.description}
+              </p>
+            </div>
+          ))}
+        
+          {/* Popup Modal */}
+          {expandedBoard && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+              <div className="bg-light-card dark:bg-dark-card p-6 rounded-xl shadow-lg border border-light-border dark:border-dark-border max-w-lg w-full relative">
+                {/* Close Button */}
+                <button 
+                  className="absolute top-3 right-3 text-lg text-gray-500 hover:text-gray-800 dark:hover:text-white"
+                  onClick={() => setExpandedBoard(null)}
+                >
+                  ✖
+                </button>
+        
+                <h3 className="text-2xl font-bold mb-4">{expandedBoard.name}</h3>
+                <p className="text-sm text-light-text dark:text-dark-text mb-4">
+                  {expandedBoard.description}
+                </p>
+        
+                <h4 className="text-lg font-semibold">Merits:</h4>
+                <ul className="list-disc pl-6 text-sm mb-4">
+                  {expandedBoard.analysis.merits.map((merit, index) => (
+                    <li key={index}>{merit}</li>
+                  ))}
+                </ul>
+        
+                <h4 className="text-lg font-semibold">Demerits:</h4>
+                <ul className="list-disc pl-6 text-sm mb-4">
+                  {expandedBoard.analysis.demerits.map((demerit, index) => (
+                    <li key={index}>{demerit}</li>
+                  ))}
+                </ul>
+        
+                <h4 className="text-lg font-semibold">Suggestions:</h4>
+                <ul className="list-disc pl-6 text-sm">
+                  {expandedBoard.analysis.suggestions.map((suggestion, index) => (
+                    <li key={index}>{suggestion}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+        </div>
+        
+        )}
+      </div>
       )}
     </div>
   );
 }
+
+
+// KHALI DABBA ARAI IDKY BADMAI DEKHTEY
