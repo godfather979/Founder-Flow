@@ -28,7 +28,7 @@ function Landing() {
 
         <div className={`content-container ${loaded ? 'loaded' : ''}`}>
           <div className="title-section">
-            <h1>TECHNOLOGY</h1>
+            <h1>FounderFlow</h1>
             <h1>START-UP</h1>
             <button className="read-more">Read More</button>
           </div>

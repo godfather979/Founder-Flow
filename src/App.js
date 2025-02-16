@@ -5,6 +5,7 @@ import "@fontsource/montserrat"; // Buttons
 import NavHome from "./pages/nav/NavHome";
 import NavLegal from "./pages/nav/NavLegal";
 import NavMarketing from "./pages/nav/NavMarketing";
+import NavBranding from "./pages/nav/NavBranding";
 
 import NavIdea from "./pages/nav/NavIdea";
 import NavIdeaGen from "./pages/nav/NavIdeaGen";
@@ -41,6 +42,7 @@ const RoutesWeb = () => {
         
         <Route path="/legal" element={<NavLegal />} />
         <Route path="/marketing" element={<NavMarketing />} />
+        <Route path="/branding" element={<NavBranding />} />
 
       </Routes>
       {/* {!isAdminRoute && <Footer />}       Conditionally render Footer */}
