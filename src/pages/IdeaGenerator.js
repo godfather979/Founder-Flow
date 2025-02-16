@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { motion } from "framer-motion";
 import { Loader } from "lucide-react";
 
-const API_KEY = process.env.REACT_APP_GEMINI_API_KEY;
+const API_KEY = "AIzaSyCFdu2Bg60WxMakJsBwlHI212aHCoMkpwo";
 const genAI = new GoogleGenerativeAI(API_KEY);
 
 const getRandomChoice = (options) => options[Math.floor(Math.random() * options.length)];
@@ -17,8 +17,10 @@ const IdeaGenerator = () => {
     surpriseMode: false,
   });
 
-  const [loadingField, setLoadingField] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [generatedIdea, setGeneratedIdea] = useState(null);
   const [shake, setShake] = useState(false);
+  const [loadingField, setLoadingField] = useState(null);
 
   const industries = ["Tech", "Healthcare", "Education", "Finance", "E-commerce", "Entertainment"];
   const problems = ["Time Management", "Health Issues", "Productivity", "Financial Planning", "Sustainability"];
@@ -51,78 +53,124 @@ const IdeaGenerator = () => {
     }, 1000);
   };
 
+  const generateGeminiResponse = async () => {
+    setLoading(true);
+    setGeneratedIdea(null);
+
+    const structuredBoard = {
+      Industry: formData.industry,
+      Problem: formData.problem,
+      "Target Audience": formData.targetAudience,
+      "Business Model": formData.businessModel,
+    };
+
+    const context = `You are an AI assistant specializing in startup ideation...`;
+    const prompt = `Analyze the following startup idea: ${JSON.stringify(structuredBoard, null, 2)} ...`;
+
+    try {
+      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      const result = await model.generateContent([context, prompt]);
+      const responseText = await result.response.text();
+      const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+
+      if (!jsonMatch) throw new Error("Failed to extract valid JSON from AI response");
+
+      const jsonResponse = JSON.parse(jsonMatch[0]);
+      setGeneratedIdea(jsonResponse);
+    } catch (error) {
+      console.error("Error generating AI response:", error);
+    }
+    setLoading(false);
+  };
+
   return (
-    <div className="relative h-screen w-full bg-gradient-to-b from-black to-[#0a192f] overflow-hidden flex items-center justify-center">
+    <div className="relative h-screen w-full bg-gradient-to-b from-black to-[#1a1a2e] overflow-hidden flex items-center justify-center">
+      
       {/* Twinkling Stars */}
-      <div className="absolute w-full h-full overflow-hidden">
-        {[...Array(100)].map((_, i) => (
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute bg-white rounded-full"
-            style={{
-              width: Math.random() * 3 + "px",
-              height: Math.random() * 3 + "px",
-              top: Math.random() * 100 + "%",
-              left: Math.random() * 100 + "%",
-              opacity: Math.random(),
-            }}
+            className="absolute bg-white rounded-full w-[2px] h-[2px]"
+            initial={{ opacity: 0 }}
             animate={{ opacity: [0, 1, 0] }}
-            transition={{ duration: Math.random() * 2 + 1, repeat: Infinity }}
+            transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+            }}
           />
         ))}
       </div>
 
-      {/* Glowing Spheres */}
-      <div className="absolute top-10 left-10 w-40 h-40 bg-blue-500 rounded-full opacity-30 blur-2xl"></div>
-      <div className="absolute bottom-10 right-10 w-40 h-40 bg-blue-400 rounded-full opacity-30 blur-2xl"></div>
-
-      {/* Main Container (Adjusted Width & Height) */}
-      <div className="relative p-6 w-[90%] max-w-5xl h-auto mx-auto bg-opacity-20 backdrop-blur-lg shadow-lg rounded-xl border border-white/20 text-white">
-        <h1 className="text-3xl font-bold text-center text-blue-400 mb-6 animate-pulse">
-          <span className="glow-text">Startup Idea Generator 🚀</span>
+      <div className="relative p-6 max-w-3xl mx-auto bg-opacity-20 backdrop-blur-lg shadow-lg rounded-xl border border-white/20 text-white">
+        <h1 className="text-3xl font-bold text-center text-yellow-400 mb-6">
+          Startup Idea Generator 🚀
         </h1>
 
         <div className="space-y-4">
-          {[{ field: "industry", label: "Industry", options: industries },
+          {[
+            { field: "industry", label: "Industry", options: industries },
             { field: "problem", label: "Problem to Solve", options: problems },
             { field: "targetAudience", label: "Target Audience", options: audiences },
-            { field: "businessModel", label: "Business Model", options: models }
+            { field: "businessModel", label: "Business Model", options: models },
           ].map(({ field, label, options }) => (
             <div key={field} className="flex items-center gap-3">
               <select
-  className="p-3 bg-gradient-to-r from-gray-800 to-gray-900 border border-white/30 rounded-lg w-full text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-  value={formData[field]}
-  onChange={(e) => handleChange(field, e.target.value)}
->
-  <option value="" className="text-gray-400">{`Select ${label}`}</option>
-  {options.map((option) => (
-    <option key={option} value={option} className="text-white bg-gray-900 hover:bg-gray-700">
-      {option}
-    </option>
-  ))}
-</select>
-
+                className="p-3 bg-black/40 border border-white/30 rounded-lg w-full text-white"
+                value={formData[field]}
+                onChange={(e) => handleChange(field, e.target.value)}
+              >
+                <option value="">{`Select ${label}`}</option>
+                {options.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
 
               <motion.button
-                className="p-3 bg-blue-400 text-white rounded-lg hover:bg-blue-600"
+                className="p-3 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
                 onClick={() => handleSurprise(field, options)}
-                animate={loadingField === field ? { x: [-5, 5, -5, 5, 0] } : {}}
-                transition={{ duration: 0.4 }}
+                animate={{ rotate: loadingField === field ? [0, 180, 3] : 0 }}
+                transition={{ duration: 0.6, repeat: loadingField === field ? Infinity : 0 }}
               >
-                {loadingField === field ? "🎲 Randomizing..." : "🎲 Surprise Me"}
+                {loadingField === field ? "🎲 Rolling..." : "🎲 Surprise Me"}
               </motion.button>
             </div>
           ))}
         </div>
 
         <motion.button
-          className="mt-5 w-full p-3 bg-blue-400 text-white rounded-lg hover:bg-blue-700"
+          className="mt-5 w-full p-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
           onClick={handleFullSurprise}
-          animate={shake ? { x: [-5, 5, -5, 5, 0] } : {}}
+          animate={{ x: shake ? [-5, 5, -5, 5, 0] : 0 }}
           transition={{ duration: 0.5 }}
         >
           🎲 Completely Surprise Me!
         </motion.button>
+
+        <button
+          className="mt-5 w-full p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+          onClick={generateGeminiResponse}
+          disabled={loading}
+        >
+          {loading ? <Loader className="animate-spin inline mr-2" /> : "🚀 Generate Startup Idea"}
+        </button>
+
+        {generatedIdea && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-8 p-6 bg-black/50 backdrop-blur-lg shadow-lg rounded-xl border border-white/20"
+          >
+            <h2 className="text-xl font-bold text-yellow-400">{generatedIdea.name}</h2>
+            <p className="text-gray-300 mt-2">{generatedIdea.description}</p>
+
+            <h3 className="font-semibold text-green-400 mt-4">✅ Merits</h3>
+            <ul className="list-disc pl-5 text-gray-300">{generatedIdea.analysis.merits.map((m, i) => <li key={i}>{m}</li>)}</ul>
+          </motion.div>
+        )}
       </div>
     </div>
   );
