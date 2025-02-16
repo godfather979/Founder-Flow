@@ -1,8 +1,7 @@
-
-import React, { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Landing.css';
-import { ArrowRight } from 'lucide-react';
+import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Landing.css";
+import { ArrowRight } from "lucide-react";
 
 function Landing() {
   const [loaded, setLoaded] = useState(false);
@@ -13,29 +12,29 @@ function Landing() {
     setLoaded(true);
   }, []);
   const handleArrowClick = () => {
-    navigate('/Home');
+    navigate("/Home");
   };
 
   return (
     <div className="page-wrapper">
       <div className="nmis" ref={mainRef}>
         <header className="header">
-          <div className="logo-container">
+          {/* <div className="logo-container">
             <div className="logo-circle">O</div>
             <span className="company-name">Wardiere, Inc.</span>
-          </div>
+          </div> */}
         </header>
 
-        <div className={`content-container ${loaded ? 'loaded' : ''}`}>
-          <div className="title-section">
+        <div className={`content-container ${loaded ? "loaded" : ""}`}>
+          <div className="title-section -mt-12">
             <h1>FounderFlow</h1>
             <h1>START-UP</h1>
-            <button className="read-more">Read More</button>
+            {/* <button className="read-more">Read More</button> */}
           </div>
 
-          <div className="website-url">
+          {/* <div className="website-url">
             www.reallygreatsite.com
-          </div>
+          </div> */}
 
           <div className="arrow-button" onClick={handleArrowClick}>
             <ArrowRight />
@@ -57,15 +56,12 @@ function Landing() {
               style={{
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`
+                animationDelay: `${Math.random() * 3}s`,
               }}
             />
           ))}
         </div>
       </div>
-
-      
-     
     </div>
   );
 }
