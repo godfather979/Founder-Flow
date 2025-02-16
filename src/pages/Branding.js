@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Palette, Tag } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+const API_KEY = process.env.REACT_APP_GEMINI_API_KEY; // Ensure you have this in your .env file
+const genAI = new GoogleGenerativeAI(API_KEY);
 
 const Branding = () => {
   const [keywords, setKeywords] = useState("");
@@ -11,21 +16,50 @@ const Branding = () => {
   const [generatedColorScheme, setGeneratedColorScheme] = useState("");
   const [loadingColorScheme, setLoadingColorScheme] = useState(false);
 
+  // Generate Brand Name & Tagline
   const handleGenerateBranding = async () => {
     setLoadingBranding(true);
-    setTimeout(() => {
-      setGeneratedBranding("Sample Brand Name: TechFlow\nTagline: Innovate. Transform. Succeed.");
-      setLoadingBranding(false);
-    }, 1500);
+    const context = `Generate a brand name and tagline based on the following keywords: ${keywords}, Description: ${description}`;
+    try {
+      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      const result = await model.generateContent([context]);
+      setGeneratedBranding(result.response.text());
+    } catch (error) {
+      console.error("Error generating branding:", error);
+    }
+    setLoadingBranding(false);
   };
 
   const handleGenerateColorScheme = async () => {
     setLoadingColorScheme(true);
-    setTimeout(() => {
-      setGeneratedColorScheme("Primary: #4A90E2\nSecondary: #2C3E50\nAccent: #E74C3C");
-      setLoadingColorScheme(false);
-    }, 1500);
+    const context = `Generate a color scheme and suitable fonts (light and dark mode) for a business with the following style preference: ${stylePreference}, Description: ${description}`;
+    try {
+      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      const result = await model.generateContent([context]);
+      setGeneratedColorScheme(result.response.text());
+    } catch (error) {
+      console.error("Error generating color scheme:", error);
+    }
+    setLoadingColorScheme(false);
   };
+
+  // Function to render color swatches alongside color names
+  const renderColorSwatches = (colorText) => {
+    // Regex to match color names and hex codes
+    const regex = /(\w+):\s*(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3})/g;
+    const colorMatches = [];
+    let match;
+    while ((match = regex.exec(colorText)) !== null) {
+      colorMatches.push({ name: match[1], hex: match[2] });
+    }
+    return colorMatches.map((color, index) => (
+      <div key={index} className="flex items-center space-x-2">
+        <span style={{ backgroundColor: color.hex }} className="w-6 h-6 rounded-full"></span>
+        <span>{color.name}: {color.hex}</span>
+      </div>
+    ));
+  };
+
 
   return (
     <div className="relative min-h-screen w-full bg-gradient-to-b from-black to-[#0a192f] overflow-x-hidden">
@@ -86,7 +120,7 @@ const Branding = () => {
           </button>
           {generatedBranding && (
             <div className="mt-4 p-2 bg-gray-800 text-white rounded">
-              <pre>{generatedBranding}</pre>
+              <ReactMarkdown>{generatedBranding}</ReactMarkdown>
             </div>
           )}
         </div>
@@ -122,7 +156,7 @@ const Branding = () => {
           </button>
           {generatedColorScheme && (
             <div className="mt-4 p-2 bg-gray-800 text-white rounded">
-              <pre>{generatedColorScheme}</pre>
+              <ReactMarkdown>{generatedColorScheme}</ReactMarkdown>
             </div>
           )}
         </div>
