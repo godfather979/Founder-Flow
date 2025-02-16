@@ -1,9 +1,45 @@
 import React, { useState } from "react";
 import { Send } from "lucide-react";
 import { motion } from "framer-motion";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import ReactMarkdown from "react-markdown"; // 🔹 Markdown Renderer
+import Markdown from "react-markdown";
+const API_KEY = process.env.REACT_APP_GEMINI_API_KEY; // Ensure you have this in your .env file
+const genAI = new GoogleGenerativeAI(API_KEY);
 
 
-// Legal Chatbot Component
+// Legal Document Simplifier - Gemini Integration
+// const simplifyLegalDocument = async (documentText, setLoading, setSimplifiedText) => {
+//   setLoading(true);
+//   setSimplifiedText("");
+//   const context = `You are a legal assistant AI. Simplify the following legal document in a way that is easy for non-lawyers to understand you are explaining this to a person with not much legal and technical knowledge so be cautious to explain in simple terms and in not very long: ${documentText}`;
+//   try {
+//     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+//     const result = await model.generateContent([context]);
+//     const simplifiedText = await result.response.text();
+//     setSimplifiedText(simplifiedText);
+//   } catch (error) {
+//     console.error("Error simplifying document:", error);
+//   }
+//   setLoading(false);
+// };
+// Corporate Structure Advisor - Gemini Integration
+// const getCorporateStructureAdvice = async (businessType, setLoading, setAdvice) => {
+//   setLoading(true);
+//   setAdvice("");
+//   const context = `You are an expert business consultant. Based on the business type '${businessType}', recommend the best corporate structure and provide advice on how to proceed. you are explaining this to a person with not much legal and technical knowledge so be cautious to explain in simple terms and in not very long`;
+//   try {
+//     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+//     const result = await model.generateContent([context]);
+//     const responseText = await result.response.text();
+//     setAdvice(responseText);
+//   } catch (error) {
+//     console.error("Error getting corporate structure advice:", error);
+//   }
+//   setLoading(false);
+// };
+// Legal Chatbot Component - Gemini Integration
+
 const LegalChatbot = () => {
   const [messages, setMessages] = useState([
     {
@@ -14,23 +50,42 @@ const LegalChatbot = () => {
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-
   const sendMessage = async () => {
     if (!input.trim()) return;
-
     setMessages([...messages, { sender: "user", text: input, typing: false }]);
     setInput("");
     setLoading(true);
-
-    // Simulate response (replace with actual API call)
     setTimeout(() => {
-      setMessages(prev => [...prev, {
-        sender: "bot",
-        text: "This is a placeholder response. Please implement actual API integration.",
-        typing: false
-      }]);
-      setLoading(false);
-    }, 1000);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { sender: "bot", text: "Thinking...", typing: true },
+      ]);
+    }, 500);
+    try {
+      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      // **🔹 Custom Prompt Context**
+      const context = `You are an AI assistant designed to help users with business-related legal advice and questions. Respond clearly and concisely with actionable insights.`;
+      const result = await model.generateContent([context, input]);
+      const response = await result.response.text();
+      // Update Bot Response
+      setMessages((prevMessages) =>
+        prevMessages.map((msg, i) =>
+          i === prevMessages.length - 1
+            ? { ...msg, text: response, typing: false }
+            : msg
+        )
+      );
+    } catch (error) {
+      console.error("Error fetching AI response:", error);
+      setMessages((prevMessages) =>
+        prevMessages.map((msg, i) =>
+          i === prevMessages.length - 1
+            ? { ...msg, text: "Sorry, I couldn't process your request.", typing: false }
+            : msg
+        )
+      );
+    }
+    setLoading(false);
   };
 
   return (
@@ -47,7 +102,7 @@ const LegalChatbot = () => {
                   msg.sender === "user" ? "bg-blue-500 text-white" : "bg-gray-700 text-gray-100"
                 }`}
               >
-                {msg.text}
+                <ReactMarkdown>{msg.text}</ReactMarkdown>
               </div>
             </div>
           ))}
@@ -83,22 +138,34 @@ const Legal = () => {
   const [loadingAdvice, setLoadingAdvice] = useState(false);
   const [businessType, setBusinessType] = useState("");
 
-  const simplifyDocument = async () => {
+  const simplifyDocument = async (documentText, setLoadingAdvice, setSimplifiedText) => {
     setLoadingDocument(true);
-    // Simulate API call (replace with actual implementation)
-    setTimeout(() => {
-      setSimplifiedText("This is a placeholder simplified text. Please implement actual API integration.");
-      setLoadingDocument(false);
-    }, 1000);
+    setSimplifiedText("");
+    const context = `You are a legal assistant AI. Simplify the following legal document in a way that is easy for non-lawyers to understand you are explaining this to a person with not much legal and technical knowledge so be cautious to explain in simple terms and in not very long: ${documentText}`;
+    try {
+      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      const result = await model.generateContent([context]);
+      const simplifiedText = await result.response.text();
+      setSimplifiedText(simplifiedText);
+    } catch (error) {
+      console.error("Error simplifying document:", error);
+    }
+    setLoadingDocument(false);
   };
 
-  const getAdvice = async () => {
+  const getAdvice = async (businessType, setLoadingAdvice, setAdvice) => {
     setLoadingAdvice(true);
-    // Simulate API call (replace with actual implementation)
-    setTimeout(() => {
-      setAdvice("This is a placeholder advice. Please implement actual API integration.");
-      setLoadingAdvice(false);
-    }, 1000);
+    setAdvice("");
+    const context = `You are an expert business consultant. Based on the business type '${businessType}', recommend the best corporate structure and provide advice on how to proceed. you are explaining this to a person with not much legal and technical knowledge so be cautious to explain in simple terms and in not very long`;
+    try {
+      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      const result = await model.generateContent([context]);
+      const responseText = await result.response.text();
+      setAdvice(responseText);
+    } catch (error) {
+      console.error("Error getting corporate structure advice:", error);
+    }
+    setLoadingAdvice(false);
   };
 
   return (
@@ -143,16 +210,16 @@ const Legal = () => {
               onChange={(e) => setDocumentText(e.target.value)}
             />
             <button
-              className="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
-              onClick={simplifyDocument}
-              disabled={loadingDocument}
-            >
-              {loadingDocument ? "Simplifying..." : "Simplify Document"}
-            </button>
+            className="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={() => simplifyDocument(documentText, setLoadingDocument, setSimplifiedText)} // Fix here
+            disabled={loadingDocument}
+          >
+            {loadingDocument ? "Simplifying..." : "Simplify Document"}
+          </button>
             {simplifiedText && (
               <div className="mt-6 text-white">
                 <h3 className="text-lg font-semibold">Simplified Document</h3>
-                <p className="mt-2">{simplifiedText}</p>
+                <ReactMarkdown className="mt-2">{simplifiedText}</ReactMarkdown>
               </div>
             )}
           </div>
@@ -168,16 +235,16 @@ const Legal = () => {
               onChange={(e) => setBusinessType(e.target.value)}
             />
             <button
-              className="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
-              onClick={getAdvice}
-              disabled={loadingAdvice}
-            >
-              {loadingAdvice ? "Generating Advice..." : "Get Advice"}
-            </button>
+            className="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={() => getAdvice(businessType, setLoadingAdvice, setAdvice)} // Fix here
+            disabled={loadingAdvice}
+          >
+            {loadingAdvice ? "Generating Advice..." : "Get Advice"}
+          </button>
             {advice && (
               <div className="mt-6 text-white">
                 <h3 className="text-lg font-semibold">Advice</h3>
-                <p className="mt-2">{advice}</p>
+                <ReactMarkdown className="mt-2">{advice}</ReactMarkdown>
               </div>
             )}
           </div>
