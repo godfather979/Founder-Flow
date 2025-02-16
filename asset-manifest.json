@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/nmims/static/css/main.3b9dd21b.css",
-    "main.js": "/nmims/static/js/main.f981c5cc.js",
+    "main.js": "/nmims/static/js/main.c0d600a5.js",
     "static/js/213.150e72aa.chunk.js": "/nmims/static/js/213.150e72aa.chunk.js",
     "static/js/732.f1d1a59f.chunk.js": "/nmims/static/js/732.f1d1a59f.chunk.js",
     "static/js/453.563ea4ce.chunk.js": "/nmims/static/js/453.563ea4ce.chunk.js",
@@ -13,6 +13,7 @@
     "static/media/inter-latin-400-normal.woff": "/nmims/static/media/inter-latin-400-normal.b0c8fe9db56dd415a25a.woff",
     "static/media/inter-latin-ext-400-normal.woff2": "/nmims/static/media/inter-latin-ext-400-normal.3d10c85fbd16969509a2.woff2",
     "static/media/inter-latin-400-normal.woff2": "/nmims/static/media/inter-latin-400-normal.9698cc7dbf147ed363b6.woff2",
+    "static/media/TextlessLogo.png": "/nmims/static/media/TextlessLogo.b01fcb273c531258145d.png",
     "static/media/montserrat-latin-400-normal.woff": "/nmims/static/media/montserrat-latin-400-normal.30be1f65d8fd296bdbbe.woff",
     "static/media/montserrat-latin-400-normal.woff2": "/nmims/static/media/montserrat-latin-400-normal.4bc3bc9536f24ed8076d.woff2",
     "static/media/inter-cyrillic-ext-400-normal.woff": "/nmims/static/media/inter-cyrillic-ext-400-normal.e89451624c6caf35687f.woff",
@@ -37,13 +38,13 @@
     "static/media/inter-vietnamese-400-normal.woff2": "/nmims/static/media/inter-vietnamese-400-normal.44c9df135eec470b0ab6.woff2",
     "index.html": "/nmims/index.html",
     "main.3b9dd21b.css.map": "/nmims/static/css/main.3b9dd21b.css.map",
-    "main.f981c5cc.js.map": "/nmims/static/js/main.f981c5cc.js.map",
+    "main.c0d600a5.js.map": "/nmims/static/js/main.c0d600a5.js.map",
     "213.150e72aa.chunk.js.map": "/nmims/static/js/213.150e72aa.chunk.js.map",
     "732.f1d1a59f.chunk.js.map": "/nmims/static/js/732.f1d1a59f.chunk.js.map",
     "453.563ea4ce.chunk.js.map": "/nmims/static/js/453.563ea4ce.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3b9dd21b.css",
-    "static/js/main.f981c5cc.js"
+    "static/js/main.c0d600a5.js"
   ]
 }
