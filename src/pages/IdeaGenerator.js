@@ -132,6 +132,7 @@ const IdeaGenerator = () => {
         ))}
       </div>
 
+      <div className="h-full w-full overflow-auto">
       <div className="relative p-6 max-w-3xl mx-auto bg-opacity-20 backdrop-blur-lg shadow-lg rounded-xl border border-white/20 text-white">
         <h1 className="text-3xl font-bold text-center text-yellow-400 mb-6">
           Startup Idea Generator 🚀
@@ -200,6 +201,7 @@ const IdeaGenerator = () => {
             <ul className="list-disc pl-5 text-gray-300">{generatedIdea.analysis.merits.map((m, i) => <li key={i}>{m}</li>)}</ul>
           </motion.div>
         )}
+      </div>
       </div>
     </div>
   );
