@@ -84,11 +84,11 @@ const IdeaGenerator = () => {
   };
 
   return (
-    <div className="relative h-screen w-full bg-gradient-to-b from-[#000428] to-[#004e92] overflow-hidden flex items-center justify-center">
+    <div className="relative h-screen w-full bg-gradient-to-b from-black to-[#1a1a2e] overflow-hidden flex items-center justify-center">
       
       {/* Twinkling Stars */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(30)].map((_, i) => (
+        {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute bg-white rounded-full w-[2px] h-[2px]"
@@ -103,22 +103,8 @@ const IdeaGenerator = () => {
         ))}
       </div>
 
-      {/* Blue Gradient Spheres */}
-      {[...Array(3)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full bg-blue-500 opacity-20 blur-3xl"
-          style={{
-            width: `${Math.random() * 200 + 100}px`,
-            height: `${Math.random() * 200 + 100}px`,
-            top: `${Math.random() * 80}%`,
-            left: `${Math.random() * 80}%`,
-          }}
-        />
-      ))}
-
       <div className="relative p-6 max-w-3xl mx-auto bg-opacity-20 backdrop-blur-lg shadow-lg rounded-xl border border-white/20 text-white">
-        <h1 className="text-3xl font-bold text-center text-blue-400 mb-6">
+        <h1 className="text-3xl font-bold text-center text-yellow-400 mb-6">
           Startup Idea Generator 🚀
         </h1>
 
@@ -144,32 +130,32 @@ const IdeaGenerator = () => {
               </select>
 
               <motion.button
-                className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 text-sm"
+                className="p-3 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
                 onClick={() => handleSurprise(field, options)}
                 animate={{ rotate: loadingField === field ? [0, 180, 3] : 0 }}
                 transition={{ duration: 0.6, repeat: loadingField === field ? Infinity : 0 }}
               >
-                {loadingField === field ? "🎲 Rolling..." : "🎲 Surprise"}
+                {loadingField === field ? "🎲 Rolling..." : "🎲 Surprise Me"}
               </motion.button>
             </div>
           ))}
         </div>
 
         <motion.button
-          className="mt-5 w-full p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 text-sm"
+          className="mt-5 w-full p-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
           onClick={handleFullSurprise}
           animate={{ x: shake ? [-5, 5, -5, 5, 0] : 0 }}
           transition={{ duration: 0.5 }}
         >
-          🎲 Surprise Me Completely!
+          🎲 Completely Surprise Me!
         </motion.button>
 
         <button
-          className="mt-5 w-full p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 text-sm disabled:opacity-50"
+          className="mt-5 w-full p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
           onClick={generateGeminiResponse}
           disabled={loading}
         >
-          {loading ? <Loader className="animate-spin inline mr-2" /> : "🚀 Generate Idea"}
+          {loading ? <Loader className="animate-spin inline mr-2" /> : "🚀 Generate Startup Idea"}
         </button>
 
         {generatedIdea && (
@@ -178,7 +164,7 @@ const IdeaGenerator = () => {
             animate={{ opacity: 1, y: 0 }}
             className="mt-8 p-6 bg-black/50 backdrop-blur-lg shadow-lg rounded-xl border border-white/20"
           >
-            <h2 className="text-xl font-bold text-blue-400">{generatedIdea.name}</h2>
+            <h2 className="text-xl font-bold text-yellow-400">{generatedIdea.name}</h2>
             <p className="text-gray-300 mt-2">{generatedIdea.description}</p>
 
             <h3 className="font-semibold text-green-400 mt-4">✅ Merits</h3>
