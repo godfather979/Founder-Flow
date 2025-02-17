@@ -2,7 +2,8 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Landing.css";
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"; 
+import logo from '../img/TextlessLogo.png';
 
 function Landing() {
   const [loaded, setLoaded] = useState(false);
@@ -24,16 +25,16 @@ function Landing() {
             <div>
               {" "}
               <img
-                src="/TextlessLogo.png"
+                src= {logo}
                 alt="Your Logo"
-                className="w-full h-full object-cover"
+                className="w-24 h-24 object-cover"
               />
             </div>
           </div>
         </header>
 
         <div className={`content-container ${loaded ? "loaded" : ""}`}>
-          <div className="title-section mt-1">
+          <div className="title-section -mt-16">
             <motion.h1
               className="text-5xl font-bold text-[#D1F8EF] text-center drop-shadow-[0_0_15px_rgba(0,0,255,0.8)]"
               initial={{ opacity: 0, scale: 0.9 }}
@@ -52,12 +53,12 @@ function Landing() {
               FounderFlow
             </motion.h1>
             <motion.h2
-              className="text-xl italic font-semibold text-center text-white"
+              className="text-xl italic font-semibold text-center text-white py-5"
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8 }}
             >
-              Boost your <br></br> START-UP <br></br>with us
+              Boost your  START-UP  with us
             </motion.h2>
           </div>
 
