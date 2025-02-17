@@ -36,7 +36,7 @@ body {
 
 /* Header Styles */
 .header {
-  padding: 2rem;
+  padding: 1rem;
   position: relative;
   z-index: 10;
 }
@@ -67,6 +67,7 @@ body {
 
 /* Main Content Styles */
 .content-container {
+  z-index: 3;
   position: relative;
   height: calc(100% - 100px);
   display: flex;
@@ -143,6 +144,7 @@ h1 {
 }
 
 .decorative-elements {
+   z-index: 2;
     position: absolute;
     top: 0;
     left: 0;
@@ -172,6 +174,7 @@ h1 {
   }
   
   .floating-sphere {
+    z-index: 4;
     position: absolute;
     border-radius: 50%;
     transform-origin: center;
@@ -250,12 +253,45 @@ h1 {
 
 .star {
   position: absolute;
-  width: 2px;
-  height: 2px;
+  width: 0.5vmin;
+  height: 0.5vmin;
   background-color: white;
-  border-radius: 50%;
+  border-radius: 0.5vmin;
   opacity: 0.6;
   animation: twinkle 3s infinite ease-in-out;
+}
+/* Bokeh Effect Styles */
+.bokeh-background {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.bokeh-particle {
+  width: 20vmin;
+  height: 20vmin;
+  border-radius: 20vmin;
+  backface-visibility: hidden;
+  position: absolute;
+  animation: move 16s linear infinite;
+  z-index: 1;
+  
+}
+
+.bokeh-particle:nth-child(1) { color: #1E90FF; top: 25%; left: 15%; animation-duration: 15.5s; animation-delay: -1.2s; }
+.bokeh-particle:nth-child(2) { color: #6495ED; top: 75%; left: 35%; animation-duration: 13.8s; animation-delay: -2.5s; }
+.bokeh-particle:nth-child(3) { color: #A7C7E7; top: 45%; left: 65%; animation-duration: 14.2s; animation-delay: -3.8s; }
+.bokeh-particle:nth-child(4) { color: #1E90FF; top: 85%; left: 85%; animation-duration: 15.8s; animation-delay: -4.1s; }
+.bokeh-particle:nth-child(5) { color: #6495ED; top: 15%; left: 45%; animation-duration: 13.5s; animation-delay: -5.4s; }
+/* Add more particle variations as needed */
+@keyframes move {
+  100% {
+    transform: translate3d(0, 0, 1px) rotate(360deg);
+  }
 }
 
 @keyframes float {

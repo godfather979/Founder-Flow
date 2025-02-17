@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Landing.css";
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 function Landing() {
   const [loaded, setLoaded] = useState(false);
@@ -19,22 +20,46 @@ function Landing() {
     <div className="page-wrapper">
       <div className="nmis" ref={mainRef}>
         <header className="header">
-          {/* <div className="logo-container">
-            <div className="logo-circle">O</div>
-            <span className="company-name">Wardiere, Inc.</span>
-          </div> */}
+          <div className="logo-container">
+            <div>
+              {" "}
+              <img
+                src="/TextlessLogo.png"
+                alt="Your Logo"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
         </header>
 
         <div className={`content-container ${loaded ? "loaded" : ""}`}>
-          <div className="title-section -mt-12">
-            <h1>FounderFlow</h1>
-            <h1>START-UP</h1>
-            {/* <button className="read-more">Read More</button> */}
+          <div className="title-section mt-1">
+            <motion.h1
+              className="text-5xl font-bold text-[#D1F8EF] text-center drop-shadow-[0_0_15px_rgba(0,0,255,0.8)]"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{
+                opacity: [0.8, 1, 0.8], // Glowing effect
+                scale: [1, 1.1, 1], // Slight size increase
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity, // Infinite loop for the beating effect
+                repeatType: "loop",
+                ease: "easeInOut",
+                delay: 1, // Optional delay for the start of the animation
+              }}
+            >
+              FounderFlow
+            </motion.h1>
+            <motion.h2
+              className="text-xl italic font-semibold text-center text-white"
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.8 }}
+            >
+              Boost your <br></br> START-UP <br></br>with us
+            </motion.h2>
           </div>
-
-          {/* <div className="website-url">
-            www.reallygreatsite.com
-          </div> */}
 
           <div className="arrow-button" onClick={handleArrowClick}>
             <ArrowRight />
