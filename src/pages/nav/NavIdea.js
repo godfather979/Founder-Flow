@@ -98,7 +98,7 @@ export default function NavIdea() {
                 href: "#",
                 icon: (
                   <img
-                    src="https://via.placeholder.com/50"
+                    src={logo}
                     className="h-7 w-7 flex-shrink-0 rounded-full border border-light-border dark:border-dark-border"
                     width={50}
                     height={50}
