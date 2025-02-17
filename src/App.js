@@ -14,7 +14,6 @@ import NavIdeaVal from "./pages/nav/NavIdeaVal";
 import NavRoadMap from "./pages/nav/NavRoadMap";
 import Landing from "./pages/Landing";
 
-
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 function App() {
@@ -35,17 +34,17 @@ const RoutesWeb = () => {
       {/* {loading && <Loader />} */}
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/nmims" element={<Landing />} />
         <Route path="/Home" element={<NavHome />} />
         <Route path="/ideation" element={<NavIdea />} />
         <Route path="/ideation/generator" element={<NavIdeaGen />} />
         <Route path="/ideation/validator" element={<NavIdeaVal />} />
         <Route path="/ideation/RoadMap" element={<NavRoadMap />} />
-        
+
         <Route path="/legal" element={<NavLegal />} />
         <Route path="/marketing" element={<NavMarketing />} />
         <Route path="/branding" element={<NavBranding />} />
         <Route path="/motivation" element={<NavMotivation />} />
-
       </Routes>
       {/* {!isAdminRoute && <Footer />}       Conditionally render Footer */}
     </>

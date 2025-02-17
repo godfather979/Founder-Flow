@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { motion } from "framer-motion";
 import { Loader } from "lucide-react";
 
-const API_KEY = "AIzaSyCFdu2Bg60WxMakJsBwlHI212aHCoMkpwo";
+const API_KEY = process.env.REACT_APP_GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(API_KEY);
 
 const getRandomChoice = (options) => options[Math.floor(Math.random() * options.length)];
@@ -56,26 +56,55 @@ const IdeaGenerator = () => {
   const generateGeminiResponse = async () => {
     setLoading(true);
     setGeneratedIdea(null);
-
     const structuredBoard = {
       Industry: formData.industry,
       Problem: formData.problem,
       "Target Audience": formData.targetAudience,
       "Business Model": formData.businessModel,
     };
-
-    const context = `You are an AI assistant specializing in startup ideation...`;
-    const prompt = `Analyze the following startup idea: ${JSON.stringify(structuredBoard, null, 2)} ...`;
-
+    const context = `
+      You are an AI assistant specializing in startup ideation.
+      Given structured JSON input with "Industry", "Problem", "Target Audience", and "Business Model",
+      you must:
+      1. Generate a unique startup name.
+      2. Write a **2-line description** summarizing the idea.
+      3. Provide a concise analysis in bullet points covering:
+         - **Merits**
+         - **Demerits**
+         - **Suggestions for improvement**
+      Your output must be in **valid JSON format**.
+    `;
+    const prompt = `
+      Analyze the following startup idea based on the provided details:
+      ${JSON.stringify(structuredBoard, null, 2)}
+      
+      Your response should follow this JSON format:
+      {
+        "name": "Generated startup name",
+        "description": "A brief two-line summary of the idea.",
+        "analysis": {
+          "merits": ["Point 1", "Point 2"],
+          "demerits": ["Point 1", "Point 2"],
+          "suggestions": ["Point 1", "Point 2"]
+        }
+      }
+    `;
     try {
       const model = genAI.getGenerativeModel({ model: "gemini-pro" });
       const result = await model.generateContent([context, prompt]);
       const responseText = await result.response.text();
+      console.log(responseText)
+    
+      // Extract only the JSON part using regex
       const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+      console.log(jsonMatch)
 
-      if (!jsonMatch) throw new Error("Failed to extract valid JSON from AI response");
-
-      const jsonResponse = JSON.parse(jsonMatch[0]);
+    
+      if (!jsonMatch) {
+        throw new Error("Failed to extract valid JSON from the AI response");
+      }
+    
+      const jsonResponse = JSON.parse(jsonMatch[0]); // Parse the extracted JSON
       setGeneratedIdea(jsonResponse);
     } catch (error) {
       console.error("Error generating AI response:", error);
@@ -103,6 +132,7 @@ const IdeaGenerator = () => {
         ))}
       </div>
 
+      <div className="h-full w-full overflow-auto">
       <div className="relative p-6 max-w-3xl mx-auto bg-opacity-20 backdrop-blur-lg shadow-lg rounded-xl border border-white/20 text-white">
         <h1 className="text-3xl font-bold text-center text-yellow-400 mb-6">
           Startup Idea Generator 🚀
@@ -171,6 +201,7 @@ const IdeaGenerator = () => {
             <ul className="list-disc pl-5 text-gray-300">{generatedIdea.analysis.merits.map((m, i) => <li key={i}>{m}</li>)}</ul>
           </motion.div>
         )}
+      </div>
       </div>
     </div>
   );
