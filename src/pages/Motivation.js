@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Trophy, Quote, CheckCircle, Users, Medal } from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 // Star Component
 const Star = ({ index }) => {
@@ -34,6 +34,16 @@ const Motivation = () => {
   const [affirmation, setAffirmation] = useState('');
   const [successStory, setSuccessStory] = useState({});
   const [achievements, setAchievements] = useState([]);
+
+  // Sample data for the line chart
+  const progressTrendData = [
+    { name: 'Month 1', tasks: 10 },
+    { name: 'Month 2', tasks: 20 },
+    { name: 'Month 3', tasks: 30 },
+    { name: 'Month 4', tasks: 40 },
+    { name: 'Month 5', tasks: 50 },
+    { name: 'Month 6', tasks: 60 }
+  ];
 
   const motivationData = {
     quotes: [
@@ -100,14 +110,6 @@ const Motivation = () => {
     setAchievements(motivationData.achievements);
   }, []);
 
-  const progressData = [
-    {
-      name: 'Progress',
-      completed: progress.tasksCompleted,
-      total: progress.totalTasks
-    }
-  ];
-
   return (
     <div className="relative h-screen w-full bg-gradient-to-b from-black to-[#0a192f] overflow-hidden">
       {/* Twinkling Stars */}
@@ -152,7 +154,6 @@ const Motivation = () => {
             </div>
           </div>
 
-          {/* Rest of the sections... */}
           {/* Daily Challenge */}
           <div className="mb-8">
             <h2 className="text-2xl font-semibold flex items-center gap-2 text-blue-400">
@@ -207,19 +208,45 @@ const Motivation = () => {
           <div className="mt-8">
             <h2 className="text-2xl font-semibold flex items-center gap-2 text-blue-400 mb-4">Progress Graph</h2>
             <div className="bg-opacity-20 backdrop-blur-lg p-6 rounded-lg border border-white/30 h-64">
-              <LineChart width={600} height={200} data={progressData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                <XAxis dataKey="name" stroke="rgba(255,255,255,0.7)" />
-                <YAxis domain={[0, progress.totalTasks]} stroke="rgba(255,255,255,0.7)" />
-                <Tooltip />
-                <Line 
-                  type="monotone" 
-                  dataKey="completed" 
-                  stroke="#60a5fa" 
-                  strokeWidth={2}
-                  dot={{ fill: '#60a5fa' }}
-                />
-              </LineChart>
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={progressTrendData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
+                  <XAxis 
+                    dataKey="name" 
+                    stroke="rgba(255,255,255,0.7)"
+                    label={{ 
+                      value: 'Duration (Months)', 
+                      position: 'bottom',
+                      fill: 'rgba(255,255,255,0.7)'
+                    }}
+                  />
+                  <YAxis
+                    stroke="rgba(255,255,255,0.7)"
+                    label={{ 
+                      value: 'Tasks Due', 
+                      angle: -90, 
+                      position: 'insideLeft',
+                      fill: 'rgba(255,255,255,0.7)'
+                    }}
+                  />
+                  <Tooltip 
+                    contentStyle={{
+                      backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      borderRadius: '8px',
+                      color: 'white'
+                    }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="tasks"
+                    stroke="#60a5fa"
+                    strokeWidth={2}
+                    dot={{ fill: '#60a5fa', strokeWidth: 2 }}
+                    activeDot={{ r: 6 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
             </div>
           </div>
         </div>

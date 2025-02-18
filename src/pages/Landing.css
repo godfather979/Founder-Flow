@@ -45,6 +45,8 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
+  font-family: bm;
+  src: url('/public/BlackMango-Black.otf') format('opentype');
 }
 
 .logo-circle {

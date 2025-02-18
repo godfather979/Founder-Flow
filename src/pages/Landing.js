@@ -22,21 +22,25 @@ function Landing() {
       <div className="nmis" ref={mainRef}>
         <header className="header">
           <div className="logo-container">
-            <div>
-              {" "}
-              <img
-                src= {logo}
-                alt="Your Logo"
-                className="w-24 h-24 object-cover"
-              />
+            <div className=" py-5 px -2 text-white font-bm" >
+              Innovate.   Implement.    Repeat.
             </div>
           </div>
         </header>
 
         <div className={`content-container ${loaded ? "loaded" : ""}`}>
-          <div className="title-section -mt-16">
+          <div className="title-section -mt-32 flex flex-col items-center">
+          <motion.img
+    src={logo}
+    alt="Your Logo"
+    className="w-96 h-96 object-contain "
+    initial={{ opacity: 0, y: -20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8 }}
+  />
+            
             <motion.h1
-              className="text-5xl font-bold text-[#D1F8EF] text-center drop-shadow-[0_0_15px_rgba(0,0,255,0.8)]"
+              className="text-5xl font-bold text-[#D1F8EF] text-center drop-shadow-[0_0_15px_rgba(0,0,255,0.8)] -mt-20"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{
                 opacity: [0.8, 1, 0.8], // Glowing effect
