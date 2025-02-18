@@ -134,9 +134,9 @@ const IdeaGenerator = () => {
 
       <div className="h-full w-full overflow-auto">
       <div className="relative p-6 max-w-3xl mx-auto bg-opacity-20 backdrop-blur-lg shadow-lg rounded-xl border border-white/20 text-white">
-        <h1 className="text-3xl font-bold text-center text-yellow-400 mb-6">
-          Startup Idea Generator 🚀
-        </h1>
+      <h1 className="text-3xl font-bold text-center text-blue-400 mb-6 animate-pulse">
+            <span className="glow-text">Startup Idea Validator 🚀</span>
+          </h1>
 
         <div className="space-y-4">
           {[
@@ -160,19 +160,19 @@ const IdeaGenerator = () => {
               </select>
 
               <motion.button
-                className="p-3 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
-                onClick={() => handleSurprise(field, options)}
-                animate={{ rotate: loadingField === field ? [0, 180, 3] : 0 }}
-                transition={{ duration: 0.6, repeat: loadingField === field ? Infinity : 0 }}
-              >
-                {loadingField === field ? "🎲 Rolling..." : "🎲 Surprise Me"}
-              </motion.button>
+  className="p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+  onClick={() => handleSurprise(field, options)}
+  animate={{ x: loadingField === field ? [-5, 5, -5] : 0 }}
+  transition={{ duration: 0.3, repeat: loadingField === field ? Infinity : 0, repeatType: "reverse" }}
+>
+  Shake Me
+</motion.button>
             </div>
           ))}
         </div>
 
         <motion.button
-          className="mt-5 w-full p-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+          className="mt-5 w-full p-3 bg-blue-400 text-white rounded-lg hover:bg-blue-400"
           onClick={handleFullSurprise}
           animate={{ x: shake ? [-5, 5, -5, 5, 0] : 0 }}
           transition={{ duration: 0.5 }}
@@ -194,7 +194,7 @@ const IdeaGenerator = () => {
             animate={{ opacity: 1, y: 0 }}
             className="mt-8 p-6 bg-black/50 backdrop-blur-lg shadow-lg rounded-xl border border-white/20"
           >
-            <h2 className="text-xl font-bold text-yellow-400">{generatedIdea.name}</h2>
+            <h2 className="text-xl font-bold text-blue-400">{generatedIdea.name}</h2>
             <p className="text-gray-300 mt-2">{generatedIdea.description}</p>
 
             <h3 className="font-semibold text-green-400 mt-4">✅ Merits</h3>
