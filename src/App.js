@@ -34,7 +34,7 @@ const RoutesWeb = () => {
       {/* {loading && <Loader />} */}
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/nmims" element={<Landing />} />
+        <Route path="/Founder-Flow" element={<Landing />} />
         <Route path="/Home" element={<NavHome />} />
         <Route path="/ideation" element={<NavIdea />} />
         <Route path="/ideation/generator" element={<NavIdeaGen />} />
