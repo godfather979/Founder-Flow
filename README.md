@@ -57,7 +57,7 @@
    ```
 
 ## 🔗 Usage
-- **Live Demo:** [Founder Flow](https://godfather979.github.io/)
+- **Live Demo:** [Founder Flow](https://godfather979.github.io/Founder-Flow/)
 - Clone and set up `.env` for full functionality.
 
 ## 👥 Contributors
