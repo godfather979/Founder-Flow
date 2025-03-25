@@ -100,10 +100,18 @@ export default function Ideation() {
 
     setLoading(true);
     try {
-      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
       const result = await model.generateContent([context, prompt]);
       const responseText = await result.response.text();
-      const jsonResponse = JSON.parse(responseText);
+      // Extract only the JSON part using regex
+      const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+      console.log(jsonMatch);
+
+      if (!jsonMatch) {
+        throw new Error("Failed to extract valid JSON from the AI response");
+      }
+
+      const jsonResponse = JSON.parse(jsonMatch[0]);
       saveGeneratedIdea(jsonResponse);
     } catch (error) {
       console.error("Error generating AI response:", error);

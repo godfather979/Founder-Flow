@@ -34,7 +34,7 @@ const genAI = new GoogleGenerativeAI(API_KEY);
     setLoadingColdEmail(true);
     const context = `Generate a cold email to ${receiverEmail} with the following message: "${messageContext}" in a ${tone} tone.`;
     try {
-      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
       const result = await model.generateContent([context]);
       const responseText = await result.response.text();
       setGeneratedContent(responseText);
@@ -53,7 +53,7 @@ const genAI = new GoogleGenerativeAI(API_KEY);
     const { instaHandle, facebookHandle, twitterHandle } = handles;
     const contextMessage = `Generate social media content for Instagram: ${instaHandle}, Facebook: ${facebookHandle}, and X (Twitter): ${twitterHandle} with this message: "${context}"`;
     try {
-      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
       const result = await model.generateContent([contextMessage]);
       const responseText = await result.response.text();
       setGeneratedContent(responseText);
@@ -71,7 +71,7 @@ const genAI = new GoogleGenerativeAI(API_KEY);
     setLoadingSeoKeywords(true);
     const contextMessage = `Suggest SEO keywords for the website ${domain} with the business name ${businessName}, niche ${niche}, and context: "${context}"`;
     try {
-      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
       const result = await model.generateContent([contextMessage]);
       const responseText = await result.response.text();
       setKeywords(responseText.split("\n"));

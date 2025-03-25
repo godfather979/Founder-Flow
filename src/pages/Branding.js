@@ -21,7 +21,7 @@ const Branding = () => {
     setLoadingBranding(true);
     const context = `Generate a brand name and tagline based on the following keywords: ${keywords}, Description: ${description}`;
     try {
-      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
       const result = await model.generateContent([context]);
       setGeneratedBranding(result.response.text());
     } catch (error) {
@@ -34,7 +34,7 @@ const Branding = () => {
     setLoadingColorScheme(true);
     const context = `Generate a color scheme and suitable fonts (light and dark mode) for a business with the following style preference: ${stylePreference}, Description: ${description}`;
     try {
-      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
       const result = await model.generateContent([context]);
       setGeneratedColorScheme(result.response.text());
     } catch (error) {

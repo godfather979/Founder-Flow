@@ -62,7 +62,7 @@ const LegalChatbot = () => {
       ]);
     }, 500);
     try {
-      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
       // **🔹 Custom Prompt Context**
       const context = `You are an AI assistant designed to help users with business-related legal advice and questions. Respond clearly and concisely with actionable insights.`;
       const result = await model.generateContent([context, input]);

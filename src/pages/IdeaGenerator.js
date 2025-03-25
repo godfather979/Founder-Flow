@@ -116,7 +116,7 @@ const IdeaGenerator = () => {
       }
     `;
     try {
-      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
       const result = await model.generateContent([context, prompt]);
       const responseText = await result.response.text();
       console.log(responseText);
